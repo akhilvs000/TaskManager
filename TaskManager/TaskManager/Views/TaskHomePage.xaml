@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+	x:Class="TaskManager.Views.TaskHomePage"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+	xmlns:controls="clr-namespace:TaskManager.Controls;assembly=TaskManager"
+	xmlns:converters="clr-namespace:TaskManager.Converters;assembly=TaskManager"
+	xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+	x:Name="HomePage"
+	Title="{Binding Title}"
+	prism:ViewModelLocator.AutowireViewModel="True">
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<converters:ItemTappedEventArgsConverter x:Key="itemTappedEventArgsConverter" />
+			<converters:InverseBoolConverter x:Key="inverseBoolConverter" />
+		</ResourceDictionary>
+	</ContentPage.Resources>
+	<ContentPage.ToolbarItems>
+		<ToolbarItem
+			Name="AddTask"
+			Command="{Binding EditTaskCommand}"
+			Order="Primary"
+			Priority="0"
+			Text="{Binding EditTaskTitle}" />
+	</ContentPage.ToolbarItems>
+	<ContentPage.Content>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+			<!--  Add new task section  -->
+			<Grid Grid.Row="0" Margin="{StaticResource MediumMargin}">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width=".8*" />
+					<ColumnDefinition Width=".2*" />
+				</Grid.ColumnDefinitions>
+				<Entry
+					Grid.Column="0"
+					Margin="{StaticResource SmallTopMargin}"
+					Placeholder="Type here to add a new todo..."
+					Text="{Binding TaskTitle}" />
+				<Button
+					Grid.Column="1"
+					Margin="{StaticResource SmallTopMargin}"
+					Command="{Binding AddTaskCommand}"
+					Style="{StaticResource ButtonStyle}"
+					Text="Add" />
+			</Grid>
+			<BoxView
+				Grid.Row="1"
+				Margin="{StaticResource MediumMargin}"
+				BackgroundColor="DarkGray"
+				HeightRequest="2" />
+			<!--  Filter Section  -->
+			<Grid Grid.Row="2" Margin="15,7">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<Frame
+					Grid.Column="0"
+					Padding="4"
+					BackgroundColor="{Binding WaitingTabColor}"
+					BorderColor="Black">
+					<Label
+						HorizontalOptions="Center"
+						Style="{StaticResource SegmentLabelStyle}"
+						Text="Waiting"
+						VerticalOptions="Center" />
+					<Frame.GestureRecognizers>
+						<TapGestureRecognizer Command="{Binding FilterCommand}" CommandParameter="Waiting" />
+					</Frame.GestureRecognizers>
+				</Frame>
+				<Frame
+					Grid.Column="1"
+					Padding="3"
+					BackgroundColor="{Binding InProgressTabColor}"
+					BorderColor="Black">
+					<Label
+						HorizontalOptions="Center"
+						Style="{StaticResource SegmentLabelStyle}"
+						Text="In Progress"
+						VerticalOptions="Center" />
+					<Frame.GestureRecognizers>
+						<TapGestureRecognizer Command="{Binding FilterCommand}" CommandParameter="In Progress" />
+					</Frame.GestureRecognizers>
+				</Frame>
+				<Frame
+					Grid.Column="2"
+					Padding="3"
+					BackgroundColor="{Binding CompletedTabColor}"
+					BorderColor="Black">
+					<Label
+						HorizontalOptions="Center"
+						Style="{StaticResource SegmentLabelStyle}"
+						Text="Completed"
+						VerticalOptions="Center" />
+					<Frame.GestureRecognizers>
+						<TapGestureRecognizer Command="{Binding FilterCommand}" CommandParameter="Completed" />
+					</Frame.GestureRecognizers>
+				</Frame>
+			</Grid>
+			<BoxView
+				Grid.Row="3"
+				Margin="{StaticResource MediumMargin}"
+				BackgroundColor="DarkGray"
+				HeightRequest="2" />
+			<!--  Task List View  -->
+			<ListView
+				x:Name="taskListView"
+				Grid.Row="4"
+				Margin="{StaticResource TaskListViewMargin}"
+				CachingStrategy="RecycleElement"
+				IsVisible="{Binding TaskListVisibility}"
+				ItemsSource="{Binding TaskList}"
+				RowHeight="44">
+				<ListView.Behaviors>
+					<behaviors:EventToCommandBehavior
+						Command="{Binding TaskItemTappedCommand}"
+						EventArgsConverter="{StaticResource itemTappedEventArgsConverter}"
+						EventName="ItemTapped" />
+				</ListView.Behaviors>
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<Grid Margin="{StaticResource MediumMargin}">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width=".75*" />
+									<ColumnDefinition Width=".25*" />
+								</Grid.ColumnDefinitions>
+								<Label
+									Grid.Column="0"
+									HorizontalOptions="StartAndExpand"
+									Style="{StaticResource TitleLabelStyle}"
+									Text="{Binding Name}"
+									VerticalOptions="CenterAndExpand" />
+								<Grid Grid.Column="1">
+									<Label
+										Grid.Column="0"
+										HorizontalTextAlignment="End"
+										IsVisible="{Binding Path=BindingContext.DeleteButtonVisibility, Source={x:Reference Name=HomePage}, Converter={StaticResource inverseBoolConverter}}"
+										Style="{DynamicResource BodyStyle}"
+										Text="{Binding Status}"
+										VerticalOptions="CenterAndExpand" />
+									<Button
+										Command="{Binding Path=BindingContext.DeleteTaskCommand, Source={x:Reference Name=HomePage}}"
+										CommandParameter="{Binding Id}"
+										IsVisible="{Binding Path=BindingContext.DeleteButtonVisibility, Source={x:Reference Name=HomePage}}"
+										Style="{StaticResource ButtonStyle}"
+										Text="Delete" />
+								</Grid>
+							</Grid>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+			<StackLayout
+				Grid.Row="4"
+				IsVisible="{Binding TaskListVisibility, Converter={StaticResource inverseBoolConverter}}"
+				VerticalOptions="FillAndExpand">
+				<Label
+					FontAttributes="Bold"
+					FontSize="Large"
+					HorizontalOptions="CenterAndExpand"
+					Text="No Tasks!"
+					VerticalOptions="CenterAndExpand" />
+			</StackLayout>
+			<!--  Update Task Popup  -->
+			<Grid
+				Grid.Row="0"
+				Grid.RowSpan="5"
+				BackgroundColor="Transparent"
+				IsVisible="{Binding UpdatePopupVisibility}">
+				<ContentView BackgroundColor="Black" Opacity="0.5" />
+				<StackLayout
+					Margin="40,0"
+					BackgroundColor="White"
+					HorizontalOptions="FillAndExpand"
+					Spacing="30"
+					VerticalOptions="Center">
+					<Label
+						Margin="{StaticResource MediumMargin}"
+						FontAttributes="Bold"
+						FontSize="Large"
+						HorizontalOptions="End"
+						Text="X">
+						<Label.GestureRecognizers>
+							<TapGestureRecognizer Command="{Binding CloseUpdatePopupCommand}" />
+						</Label.GestureRecognizers>
+					</Label>
+					<Entry
+						Margin="{StaticResource LargeMargin}"
+						HorizontalOptions="FillAndExpand"
+						Text="{Binding UpdatedTaskName}" />
+					<controls:SegmentedControl
+						BindingContext="{Binding SelectedItem}"
+						Command="{Binding Path=BindingContext.StatusSelectCommand, Source={x:Reference Name=HomePage}}"
+						HorizontalOptions="FillAndExpand"
+						VerticalOptions="Center" />
+					<Button
+						Command="{Binding UpdateTaskCommand}"
+						HorizontalOptions="FillAndExpand"
+						Style="{StaticResource ButtonStyle}"
+						Text="Save" />
+				</StackLayout>
+			</Grid>
+			<!--  Activity Indicator View  -->
+			<Grid
+				Grid.Row="0"
+				Grid.RowSpan="5"
+				BackgroundColor="Transparent"
+				IsVisible="{Binding IsLoading}">
+				<ContentView BackgroundColor="Black" Opacity="0.5" />
+				<ActivityIndicator
+					HorizontalOptions="Center"
+					IsRunning="{Binding IsLoading}"
+					VerticalOptions="Center" />
+			</Grid>
+		</Grid>
+	</ContentPage.Content>
+</ContentPage>

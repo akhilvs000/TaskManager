@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<prism:PrismApplication
+	x:Class="TaskManager.App"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms">
+	<Application.Resources>
+		<!--  Application resource dictionary  -->
+
+		<!--  Home Page Margin  -->
+		<Thickness x:Key="MediumMargin">5,2</Thickness>
+		<Thickness x:Key="LargeMargin">20,0</Thickness>
+		<Thickness x:Key="TaskListViewMargin">10,0</Thickness>
+        <Thickness x:Key="SmallTopMargin">0,5,0,0</Thickness>
+
+		<!--  Home Page Colors  -->
+		<Color x:Key="Blue">#0000FF</Color>
+		<Color x:Key="Black">#000000</Color>
+
+		<!--  Styles  -->
+		<Style x:Key="TitleLabelStyle" TargetType="Label">
+			<Setter Property="TextColor" Value="Black" />
+			<Setter Property="FontSize" Value="18" />
+			<Setter Property="FontAttributes" Value="Bold" />
+		</Style>
+
+		<Style x:Key="SegmentLabelStyle" TargetType="Label">
+			<Setter Property="TextColor" Value="Black" />
+			<Setter Property="FontSize" Value="12" />
+			<Setter Property="FontAttributes" Value="Bold" />
+		</Style>
+        
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="BackgroundColor" Value="LightBlue" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+
+	</Application.Resources>
+</prism:PrismApplication>

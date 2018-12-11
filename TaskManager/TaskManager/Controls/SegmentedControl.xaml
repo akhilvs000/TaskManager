@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+	x:Class="TaskManager.Controls.SegmentedControl"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+	<ContentView.Content>
+		<Grid
+			Margin="20,0"
+			ColumnSpacing="1"
+			HeightRequest="25">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<!--  Waiting Status Segment  -->
+			<Frame
+				x:Name="waitingStatusFrame"
+				Grid.Column="0"
+				Padding="0"
+				BorderColor="Black">
+				<Label
+					HorizontalOptions="Center"
+					Style="{StaticResource SegmentLabelStyle}"
+					Text="Waiting"
+					VerticalOptions="Center" />
+				<Frame.GestureRecognizers>
+					<TapGestureRecognizer x:Name="waitingStatusTapGesture" />
+				</Frame.GestureRecognizers>
+			</Frame>
+			<!--  In Progress Status Segment  -->
+			<Frame
+				x:Name="inProgressStatusFrame"
+				Grid.Column="1"
+				Padding="0"
+				BorderColor="Black">
+				<Label
+					FontAttributes="Bold"
+					HorizontalOptions="Center"
+					Style="{StaticResource SegmentLabelStyle}"
+					Text="In Progress"
+					TextColor="Black"
+					VerticalOptions="Center" />
+				<Frame.GestureRecognizers>
+					<TapGestureRecognizer x:Name="inProgressStatusTapGesture" />
+				</Frame.GestureRecognizers>
+			</Frame>
+			<!--  Completed Status Segment  -->
+			<Frame
+				x:Name="completedStatusFrame"
+				Grid.Column="2"
+				Padding="0"
+				BorderColor="Black">
+				<Label
+					HorizontalOptions="Center"
+					Style="{StaticResource SegmentLabelStyle}"
+					Text="Completed"
+					VerticalOptions="Center" />
+				<Frame.GestureRecognizers>
+					<TapGestureRecognizer x:Name="completedStatusTapGesture" />
+				</Frame.GestureRecognizers>
+			</Frame>
+		</Grid>
+	</ContentView.Content>
+</ContentView>

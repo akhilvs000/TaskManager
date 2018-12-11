@@ -1,0 +1,28 @@
+﻿<Properties StartupConfiguration="{12616752-AB32-4579-9097-358F36C242AF}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TaskManager.UnitTestApplication/Tests/HomePageViewModelTest.cs">
+    <Files>
+      <File FileName="TaskManager/TaskManager/Services/TasksService.cs" Line="69" Column="36" />
+      <File FileName="TaskManager/TaskManager/Interfaces/ITasksService.cs" Line="18" Column="1" />
+      <File FileName="TaskManager/TaskManager/Interfaces/IRepository.cs" Line="11" Column="17" />
+      <File FileName="TaskManager/TaskManager/DataAccessLayer/BaseRepository.cs" Line="12" Column="81" />
+      <File FileName="TaskManager/TaskManager/App.xaml.cs" Line="43" Column="13" />
+      <File FileName="TaskManager/TaskManager/Helpers/IocContainer.cs" Line="5" Column="18" />
+      <File FileName="TaskManager.UnitTestApplication/Tests/HomePageViewModelTest.cs" Line="184" Column="61" />
+    </Files>
+    <Pads>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="TaskManager" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.TaskManager.Android PreferredExecutionTarget="Android.859S6PDYAU8HFIRO" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.TaskManager.iOS automaticSigning="False" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.91828660-2317-4650-8BCA-EE3FAF6D6AE2" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
